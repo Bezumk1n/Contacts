@@ -1,0 +1,18 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:V="clr-namespace:Contacts.WPF.Views"
+    xmlns:VM="clr-namespace:Contacts.WPF.ViewModels">
+    <DataTemplate DataType="{x:Type VM:AddContactVM}">
+        <V:AddContactV />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type VM:UpdateContactVM}">
+        <V:UpdateContactV />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type VM:ContactsVM}">
+        <V:ContactsV />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type VM:InfoVM}">
+        <V:InfoV />
+    </DataTemplate>
+</ResourceDictionary>

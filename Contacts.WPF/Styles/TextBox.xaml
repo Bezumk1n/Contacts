@@ -1,0 +1,67 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="TextBox_Main" TargetType="{x:Type TextBox}">
+        <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="CaretBrush" Value="{StaticResource TextColor}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style
+        x:Key="PasswordBox_Main"
+        BasedOn="TextBox_Main"
+        TargetType="{x:Type PasswordBox}">
+        <!--<Setter Property="Foreground" Value="{StaticResource TextColor}" />
+        <Setter Property="Background" Value="Transparent" />-->
+        <Setter Property="CaretBrush" Value="{StaticResource MainFourthColor}" />
+        <!--<Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="FontSize" Value="14" />-->
+    </Style>
+    <!--<Style x:Key="TextBox_WithTag" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">-->
+    <Style
+        x:Key="TextBox_WithTag"
+        BasedOn="{StaticResource TextBox_Main}"
+        TargetType="{x:Type TextBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border
+                        x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="True">
+                        <Grid>
+                            <TextBlock
+                                x:Name="tag"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Opacity="0.5"
+                                Style="{StaticResource TextBlock_Main}"
+                                Text="{TemplateBinding Tag}"
+                                Visibility="Collapsed" />
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                Focusable="false"
+                                HorizontalScrollBarVisibility="Hidden"
+                                VerticalScrollBarVisibility="Hidden" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="border" Property="Opacity" Value="0.5" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource MainFirstColor}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource MainFirstColor}" />
+                        </Trigger>
+                        <Trigger Property="Text" Value="">
+                            <Setter TargetName="tag" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
