@@ -1,21 +1,7 @@
-﻿using Contacts.Application.Common.Interfaces;
-using Contacts.Application.Contacts.Commands.DeleteContact;
-using Contacts.Application.Contacts.Queries.GetContacts;
-using Contacts.Application.Users.Queries;
-using Contacts.Domain.Common;
-using Contacts.Domain.Entities;
-using Contacts.WPF.Commands;
+﻿using Contacts.WPF.Commands;
 using Contacts.WPF.Common;
 using Contacts.WPF.Common.Navigation;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Contacts.WPF.ViewModels
 {

@@ -1,20 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using Contacts.Persistance;
 using Contacts.Application;
 using Contacts.Services;
 using Contacts.WPF.Views;
 using Contacts.WPF.ViewModels;
-using Contacts.Application.Common.Interfaces;
-using Contacts.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace Contacts.WPF
 {

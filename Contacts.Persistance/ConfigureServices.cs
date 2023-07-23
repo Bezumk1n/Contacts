@@ -2,11 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Contacts.Persistance
 {
@@ -16,10 +11,6 @@ namespace Contacts.Persistance
         {
             // Настройка подключения к БД
             var connectionString = configuration["DbConnection"];
-
-            //services.AddDbContext<ContactsDbContext>(options =>
-            //    options.UseNpgsql(connectionString,
-            //        builder => builder.MigrationsAssembly(typeof(ContactsDbContext).Assembly.FullName)));
 
             services.AddDbContext<ContactsDbContext>(options =>
                 options.UseNpgsql(connectionString));

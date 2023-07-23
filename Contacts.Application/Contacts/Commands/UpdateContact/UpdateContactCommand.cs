@@ -1,12 +1,6 @@
 ﻿using Contacts.Application.Common.Interfaces;
 using Contacts.Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace Contacts.Application.Contacts.Commands.UpdateContact
 {

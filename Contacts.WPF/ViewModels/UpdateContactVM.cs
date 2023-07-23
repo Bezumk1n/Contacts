@@ -1,16 +1,10 @@
 ﻿using Contacts.Application.Common.Interfaces;
-using Contacts.Application.Contacts.Commands.AddContact;
 using Contacts.Application.Contacts.Commands.UpdateContact;
 using Contacts.Domain.Entities;
-using Contacts.Services.Stores;
 using Contacts.WPF.Commands;
 using Contacts.WPF.Common;
 using Contacts.WPF.Common.Navigation;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 

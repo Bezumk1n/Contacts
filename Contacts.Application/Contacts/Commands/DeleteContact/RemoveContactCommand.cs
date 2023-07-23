@@ -1,13 +1,7 @@
 ﻿using Contacts.Application.Common.Interfaces;
-using Contacts.Application.Contacts.Commands.AddContact;
 using Contacts.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Contacts.Application.Contacts.Commands.DeleteContact
 {
