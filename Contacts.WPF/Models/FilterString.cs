@@ -9,13 +9,13 @@ namespace Contacts.WPF.Models
 {
     public class FilterString
     {
-        public string Chars { get; set; }
+        public string Filter { get; set; }
         public bool IsChecked { get; set; }
         public bool IsAll { get; set; }
-        public static FilterString Create(string chars, bool isAll = false)
+        public static FilterString Create(string filter, bool isAll = false)
         {
             FilterString result = new FilterString();
-            result.Chars = chars;
+            result.Filter = filter;
             result.IsChecked = isAll; 
             result.IsAll = isAll; 
             return result;

@@ -53,7 +53,7 @@ namespace Contacts.WPF.ViewModels
                     .ToList();
                 if (!CurrentFilterString.IsAll)
                     result = result
-                        .Where(q => CurrentFilterString.Chars.ToLower().Contains(q.Name.ToLower().First()))
+                        .Where(q => CurrentFilterString.Filter.ToLower().Contains(q.Name.ToLower().First()))
                         .ToList();
             }
             return result.OrderBy(q => q.Name).ToList();
@@ -119,7 +119,7 @@ namespace Contacts.WPF.ViewModels
         /// <summary>
         /// Комнда фильтрации контактов
         /// </summary>
-        public ICommand CommandSetFilterChars { get; }
+        public ICommand CommandSetFilter { get; }
         #endregion
         #region Constructor
         /// <summary>
@@ -150,7 +150,7 @@ namespace Contacts.WPF.ViewModels
                 }),
                 () => SelectedContact != null);
 
-            CommandSetFilterChars = new DelegateCommand(obj => SetFilterChars(obj));
+            CommandSetFilter = new DelegateCommand(SetFilter);
 
             CreateFilterStrings();
 
@@ -185,7 +185,7 @@ namespace Contacts.WPF.ViewModels
         /// Задать символы по которым будет происходить фильтрация контактов
         /// </summary>
         /// <param name="obj"></param>
-        private void SetFilterChars(object obj)
+        private void SetFilter(object obj)
         {
             if (obj is FilterString filter)
             {

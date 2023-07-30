@@ -64,9 +64,9 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <RadioButton
-                        Command="{Binding DataContext.CommandSetFilterChars, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                        Command="{Binding DataContext.CommandSetFilter, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                         CommandParameter="{Binding}"
-                        Content="{Binding Chars, UpdateSourceTrigger=PropertyChanged}"
+                        Content="{Binding Filter, UpdateSourceTrigger=PropertyChanged}"
                         IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource RadioButton_Text}" />
                 </DataTemplate>
