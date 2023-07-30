@@ -6,6 +6,7 @@ using Contacts.Domain.Entities;
 using Contacts.WPF.Commands;
 using Contacts.WPF.Common;
 using Contacts.WPF.Common.Navigation;
+using Contacts.WPF.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -40,15 +41,23 @@ namespace Contacts.WPF.ViewModels
         /// <summary>
         /// Коллекция отфильтроаных и отсортированых контактов
         /// </summary>
-        public List<Contact> Contacts => _contactsStore.Collection
-            .Where(q => _charSet.Contains(q.Name.ToLower().First()))
-            .Where(q => q.ToString().ToLower().Contains(_searchText.ToLower()))
-            .OrderBy(q => q.Name)
-            .ToList();
-        /// <summary>
-        /// Коллекция символов для фильтрации контактов
-        /// </summary>
-        private char[] _charSet;
+        public List<Contact> Contacts => GetFilteredContacts();
+
+        private List<Contact> GetFilteredContacts()
+        {
+            List<Contact> result = new List<Contact>();
+            if (_contactsStore.Collection.Any())
+            {
+                result = _contactsStore.Collection
+                    .Where(q => q.ToString().ToLower().Contains(_searchText.ToLower()))
+                    .ToList();
+                if (!CurrentFilterString.IsAll)
+                    result = result
+                        .Where(q => CurrentFilterString.Chars.ToLower().Contains(q.Name.ToLower().First()))
+                        .ToList();
+            }
+            return result.OrderBy(q => q.Name).ToList();
+        }
         /// <summary>
         /// Текст поиска контакта
         /// </summary>
@@ -74,6 +83,25 @@ namespace Contacts.WPF.ViewModels
         /// Коллекция пользователей
         /// </summary>
         public List<User> Users => _usersStore.Collection.ToList();
+        /// <summary>
+        /// Коллекция фильтров
+        /// </summary>
+        public List<FilterString> FilterStrings { get; private set; }
+        /// <summary>
+        /// Текущий выбранный фильтр
+        /// </summary>
+        public FilterString CurrentFilterString
+        {
+            get => _currentFilterString;
+            set
+            {
+                _currentFilterString = value;
+                OnPropertyChanged();
+                OnPropertyChanged(() => Contacts);
+                OnPropertyChanged(() => FilterStrings);
+            }
+        }
+        private FilterString _currentFilterString;
         #endregion
         #region Commands
         /// <summary>
@@ -124,37 +152,48 @@ namespace Contacts.WPF.ViewModels
 
             CommandSetFilterChars = new DelegateCommand(obj => SetFilterChars(obj));
 
+            CreateFilterStrings();
+
             _mediator.Send(new GetContactsQuerry());
             _mediator.Send(new GetUserQuerry());
-
-            SetDefaultCharSet();
         }
         #endregion
         #region Methods
+        /// <summary>
+        /// Создать коллекцию фильтров
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        private void CreateFilterStrings()
+        {
+            FilterStrings = new List<FilterString>
+            {
+                FilterString.Create("Все", isAll: true),
+                FilterString.Create("АБВ"),
+                FilterString.Create("ГДЕЁ"),
+                FilterString.Create("ЖЗИЙ"),
+                FilterString.Create("КЛМ"),
+                FilterString.Create("НОП"),
+                FilterString.Create("РСТ"),
+                FilterString.Create("УФХ"),
+                FilterString.Create("ЦЧШ"),
+                FilterString.Create("ЩЪЫЬ"),
+                FilterString.Create("ЭЮЯ")
+            };
+            CurrentFilterString = FilterStrings.First(q => q.IsAll);
+        }
         /// <summary>
         /// Задать символы по которым будет происходить фильтрация контактов
         /// </summary>
         /// <param name="obj"></param>
         private void SetFilterChars(object obj)
         {
-            if (obj is string str)
+            if (obj is FilterString filter)
             {
-                if (string.IsNullOrWhiteSpace(str))
-                    SetDefaultCharSet();
-                else
-                    SetCharSet(str);
-                OnPropertyChanged(() => Contacts);
+                FilterStrings = FilterStrings.Select(q => { q.IsChecked = false; return q; }).ToList();
+                filter.IsChecked = true;
+                CurrentFilterString = filter;
             }
         }
-        /// <summary>
-        /// Задать дефолтное состояние символов для фильтрации
-        /// </summary>
-        private void SetDefaultCharSet() => SetCharSet("ёйцукенгшщзъэждлорпавыфячсмитьбю");
-        /// <summary>
-        /// Задать символы для фильтрации
-        /// </summary>
-        /// <param name="str"></param>
-        private void SetCharSet(string str) => _charSet = str.ToLower().ToCharArray();
         #endregion
     }
 }

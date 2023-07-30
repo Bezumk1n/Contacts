@@ -19,6 +19,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
+        <!--  Текст поиска  -->
         <TextBox
             Grid.Row="0"
             Grid.Column="0"
@@ -28,6 +29,7 @@
             Style="{StaticResource TextBox_WithTag}"
             Tag="Поиск..."
             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+        <!--  Кнопки управления  -->
         <StackPanel
             Grid.Row="0"
             Grid.Column="2"
@@ -48,68 +50,29 @@
                 Content="Remove contact"
                 Style="{StaticResource Button_Main}" />
         </StackPanel>
-        <WrapPanel
+        <!--  Коолекция фильтров  -->
+        <ItemsControl
             Grid.Row="1"
             Grid.ColumnSpan="3"
             Margin="5"
-            Orientation="Horizontal">
-            <RadioButton
-                Command="{Binding CommandSetFilterChars}"
-                CommandParameter=""
-                Content="Все"
-                IsChecked="True"
-                Style="{StaticResource RadioButton_Text}" />
-            <RadioButton
-                Command="{Binding CommandSetFilterChars}"
-                CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=Self}}"
-                Content="АБВ"
-                Style="{StaticResource RadioButton_Text}" />
-            <RadioButton
-                Command="{Binding CommandSetFilterChars}"
-                CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=Self}}"
-                Content="ГДЕЁ"
-                Style="{StaticResource RadioButton_Text}" />
-            <RadioButton
-                Command="{Binding CommandSetFilterChars}"
-                CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=Self}}"
-                Content="ЖЗИЙ"
-                Style="{StaticResource RadioButton_Text}" />
-            <RadioButton
-                Command="{Binding CommandSetFilterChars}"
-                CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=Self}}"
-                Content="КЛМ"
-                Style="{StaticResource RadioButton_Text}" />
-            <RadioButton
-                Command="{Binding CommandSetFilterChars}"
-                CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=Self}}"
-                Content="НОП"
-                Style="{StaticResource RadioButton_Text}" />
-            <RadioButton
-                Command="{Binding CommandSetFilterChars}"
-                CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=Self}}"
-                Content="РСТ"
-                Style="{StaticResource RadioButton_Text}" />
-            <RadioButton
-                Command="{Binding CommandSetFilterChars}"
-                CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=Self}}"
-                Content="УФХ"
-                Style="{StaticResource RadioButton_Text}" />
-            <RadioButton
-                Command="{Binding CommandSetFilterChars}"
-                CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=Self}}"
-                Content="ЦЧШ"
-                Style="{StaticResource RadioButton_Text}" />
-            <RadioButton
-                Command="{Binding CommandSetFilterChars}"
-                CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=Self}}"
-                Content="ЩЪЫЬ"
-                Style="{StaticResource RadioButton_Text}" />
-            <RadioButton
-                Command="{Binding CommandSetFilterChars}"
-                CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=Self}}"
-                Content="ЭЮЯ"
-                Style="{StaticResource RadioButton_Text}" />
-        </WrapPanel>
+            ItemsSource="{Binding FilterStrings}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <RadioButton
+                        Command="{Binding DataContext.CommandSetFilterChars, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                        CommandParameter="{Binding}"
+                        Content="{Binding Chars, UpdateSourceTrigger=PropertyChanged}"
+                        IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource RadioButton_Text}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!--  Данные  -->
         <DataGrid
             Grid.Row="2"
             Grid.ColumnSpan="3"
