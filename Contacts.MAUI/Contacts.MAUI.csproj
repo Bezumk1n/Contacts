@@ -49,7 +49,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiFont Remove="Resources\Fonts\fewriter_info.txt" />
+	  <MauiFont Remove="Resources\Fonts\fewriter_memesbruh03.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="appsettings.json" />
+	  <None Remove="Resources\Fonts\fewriter_info.txt" />
+	  <None Remove="Resources\Fonts\fewriter_memesbruh03.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -65,12 +72,31 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Contacts.Application\Contacts.Application.csproj" />
 	  <ProjectReference Include="..\Contacts.Persistance\Contacts.Persistance.csproj" />
+	  <ProjectReference Include="..\Contacts.Services\Contacts.Services.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Content Include="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Resources\Fonts\fewriter_info.txt">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Resources\Fonts\fewriter_memesbruh03.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\ContactsV.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\InfoV.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

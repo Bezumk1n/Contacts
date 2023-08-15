@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Contacts.Persistance;
 using Contacts.Application;
+using Contacts.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using System.Reflection;
@@ -23,12 +24,14 @@ namespace Contacts.MAUI
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                    fonts.AddFont("fewriter_memesbruh03.ttf", "Fewriter");
                 });
                 
             builder.Configuration.AddConfiguration(jsonConfuguration);
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddApplicationServices();
+            builder.Services.AddServices();
+            builder.Services.AddViews();
 
             var initialiser = builder.Services.BuildServiceProvider().GetService<ContactsDbContextInitialiser>();
             initialiser.Initialise();

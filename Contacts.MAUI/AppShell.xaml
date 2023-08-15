@@ -3,12 +3,17 @@
     x:Class="Contacts.MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Contacts.MAUI"
-    Shell.FlyoutBehavior="Disabled">
-
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+    xmlns:pages="clr-namespace:Contacts.MAUI.Pages"
+    Title="Контакты"
+    FlyoutBehavior="Disabled">
+    <!--<FlyoutItem Title="Контакты">
+        <ShellContent Title="Контакты 2" ContentTemplate="{DataTemplate pages:ContactsV}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Информация">
+        <ShellContent Title="Информация 2" ContentTemplate="{DataTemplate pages:InfoV}" />
+    </FlyoutItem>-->
+    <TabBar>
+        <ShellContent Title="Контакты" ContentTemplate="{DataTemplate pages:ContactsV}" />
+        <ShellContent Title="Информация" ContentTemplate="{DataTemplate pages:InfoV}" />
+    </TabBar>
 </Shell>
