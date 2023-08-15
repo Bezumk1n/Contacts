@@ -9,5 +9,21 @@
             HorizontalOptions="Center"
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" />
+        <CollectionView ItemsSource="{Binding Contacts}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <BoxView Color="CornflowerBlue" Grid.Column="0"/>
+                        <Label Grid.Column="0" Text="{Binding Name}"/>
+                        <BoxView Color="CornflowerBlue" Grid.Column="1"/>
+                        <Label Grid.Column="1" Text="{Binding Surname}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
