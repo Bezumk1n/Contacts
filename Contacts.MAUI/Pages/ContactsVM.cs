@@ -2,6 +2,7 @@
 using Contacts.Application.Contacts.Commands.DeleteContact;
 using Contacts.Application.Contacts.Queries.GetContacts;
 using Contacts.Domain.Entities;
+using Contacts.MAUI.Commands;
 using Contacts.MAUI.Common;
 using Contacts.MAUI.Models;
 using MediatR;
@@ -106,17 +107,23 @@ namespace Contacts.MAUI.Pages
             //CommandAddContact = new Command(_ => _navigationService.OpenDialog<AddContactVM>());
             //CommandUpdateContact = new Command(_ => _navigationService.OpenDialog<UpdateContactVM>(), obj => SelectedContact != null);
 
-            CommandRemoveContact = new Command(async _ =>
-            await _mediator.Send(
-                new RemoveContactCommand()
-                {
-                    Id = SelectedContact.Id
-                }), obj => SelectedContact != null);
-
+            //CommandRemoveContact = new Command(async _ =>
+            //await _mediator.Send(
+            //    new RemoveContactCommand()
+            //    {
+            //        Id = SelectedContact.Id
+            //    }), obj => SelectedContact != null);
+            CommandRemoveContact = new DelegateCommand(Remove);
             CreateFilterStrings();
 
             _mediator.Send(new GetContactsQuerry());
         }
+
+        private void Remove(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Создать коллекцию фильтров
         /// </summary>

@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Contacts.MAUI.Pages"
     Title="Контакты"
-    FlyoutBehavior="Disabled">
+    FlyoutBehavior="Disabled" Shell.NavBarIsVisible="False">
     <!--<FlyoutItem Title="Контакты">
         <ShellContent Title="Контакты 2" ContentTemplate="{DataTemplate pages:ContactsV}" />
     </FlyoutItem>

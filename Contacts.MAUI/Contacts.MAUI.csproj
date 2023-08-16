@@ -99,8 +99,4 @@
 	  </MauiXaml>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Commands\" />
-	</ItemGroup>
-
 </Project>
