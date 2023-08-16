@@ -23,11 +23,16 @@ namespace Contacts.Application.Contacts.Commands.DeleteContact
         }
         public async Task Handle(RemoveContactCommand request, CancellationToken cancellationToken)
         {
-            await _contactsApiService.RemoveContact(request.Id);
-            //var entity = await _context.Contacts.FirstOrDefaultAsync(q => q.Id == request.Id);
-            //_context.Contacts.Remove(entity);
-            //_context.SaveChanges();
-            //_contactsStore.RemoveItem(request.Id);
+            try
+            {
+                await _contactsApiService.RemoveContact(request.Id);
+                _contactsStore.RemoveItem(request.Id);
+
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
         }
     }
 }

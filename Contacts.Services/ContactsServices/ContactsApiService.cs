@@ -18,10 +18,19 @@ namespace Contacts.Services.ContactsServices
         {
             _commonApiClent = commonApiClent;
         }
-        //public async Task<Contact> AddContact(Contact contact)
-        //{
-        //    string uri = "http://192.168.0.175:5000/api/v1/Contacts/AddContact";
-        //}
+        public async Task<Contact> AddContact(Contact contact)
+        {
+            try
+            {
+                //string uri = "http://192.168.0.175:5000/api/v1/Contacts/AddContact";
+                string uriLocal = "http://localhost:5000/api/v1/Contacts/AddContact";
+                return await _commonApiClent.PostData<Contact>(uriLocal, contact);
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+        }
         //public async Task<Contact> UpdateContact(Contact contact)
         //{
         //    string uri = "http://192.168.0.175:5000/api/v1/Contacts/UpdateContact";
@@ -36,12 +45,11 @@ namespace Contacts.Services.ContactsServices
             {
                 //string uri = "http://192.168.0.175:5000/api/v1/Contacts/RemoveContact";
                 string uriLocal = "http://localhost:5000/api/v1/Contacts/RemoveContact";
-                await _commonApiClent.PostData(uriLocal, id);
+                await _commonApiClent.PostData<Guid>(uriLocal, id);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-
-                throw ex;
+                throw exception;
             }
         }
     }

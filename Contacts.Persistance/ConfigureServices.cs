@@ -7,7 +7,7 @@ namespace Contacts.Persistance
 {
     public static class ConfigureServices
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddPersistanceServices(this IServiceCollection services, IConfiguration configuration)
         {
             // Настройка подключения к БД
             var connectionString = configuration["DbConnection"];

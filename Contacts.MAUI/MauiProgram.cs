@@ -28,7 +28,7 @@ namespace Contacts.MAUI
                 });
                 
             builder.Configuration.AddConfiguration(jsonConfuguration);
-            builder.Services.AddInfrastructureServices(builder.Configuration);
+            builder.Services.AddPersistanceServices(builder.Configuration);
             builder.Services.AddApplicationServices();
             builder.Services.AddServices();
             builder.Services.AddViews();

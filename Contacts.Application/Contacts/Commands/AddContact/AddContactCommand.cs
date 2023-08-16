@@ -1,6 +1,7 @@
 ﻿using Contacts.Application.Common.Interfaces;
 using Contacts.Domain.Entities;
 using MediatR;
+using System.Runtime.InteropServices;
 
 namespace Contacts.Application.Contacts.Commands.AddContact
 {
@@ -10,22 +11,26 @@ namespace Contacts.Application.Contacts.Commands.AddContact
     }
     public class AddContactCommandHandler : IRequestHandler<AddContactCommand>
     {
-        private readonly IContactsDbContext _context;
         private readonly IStore<Contact> _contactsStore;
-        public AddContactCommandHandler(IContactsDbContext context, IStore<Contact> contactsStore)
+        private readonly IContactsApiService _contactsApiService;
+
+        public AddContactCommandHandler(IStore<Contact> contactsStore, IContactsApiService contactsApiService)
         {
-            _context = context;
             _contactsStore = contactsStore;
+            _contactsApiService = contactsApiService;
         }
         public async Task Handle(AddContactCommand request, CancellationToken cancellationToken)
         {
-            request.Contact.Created = DateTime.UtcNow;
+            try
+            {
+                var contact = await _contactsApiService.AddContact(request.Contact);
+                _contactsStore.AddItem(contact);
 
-            await _context.Contacts.AddAsync(request.Contact);
-            _context.SaveChanges();
-
-            var savedEntity = _context.Contacts.FirstOrDefault(q => q.Id == request.Contact.Id);
-            _contactsStore.AddItem(savedEntity);
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
         }
     }
 }

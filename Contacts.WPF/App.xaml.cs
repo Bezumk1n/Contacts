@@ -25,7 +25,7 @@ namespace Contacts.WPF
             host.ConfigureServices((context, services) =>
             {
                 services.AddViews();
-                services.AddInfrastructureServices(context.Configuration);
+                services.AddPersistanceServices(context.Configuration);
                 services.AddApplicationServices();
                 services.AddServices();
             });
