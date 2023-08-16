@@ -13,17 +13,21 @@ namespace Contacts.Application.Contacts.Commands.DeleteContact
     {
         private readonly IContactsDbContext _context;
         private readonly IStore<Contact> _contactsStore;
-        public RemoveContactCommandHandler(IContactsDbContext context, IStore<Contact> contactsStore)
+        private readonly IContactsApiService _contactsApiService;
+
+        public RemoveContactCommandHandler(IContactsDbContext context, IStore<Contact> contactsStore, IContactsApiService contactsApiService)
         {
             _context = context;
             _contactsStore = contactsStore;
+            _contactsApiService = contactsApiService;
         }
         public async Task Handle(RemoveContactCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _context.Contacts.FirstOrDefaultAsync(q => q.Id == request.Id);
-            _context.Contacts.Remove(entity);
-            _context.SaveChanges();
-            _contactsStore.RemoveItem(request.Id);
+            await _contactsApiService.RemoveContact(request.Id);
+            //var entity = await _context.Contacts.FirstOrDefaultAsync(q => q.Id == request.Id);
+            //_context.Contacts.Remove(entity);
+            //_context.SaveChanges();
+            //_contactsStore.RemoveItem(request.Id);
         }
     }
 }

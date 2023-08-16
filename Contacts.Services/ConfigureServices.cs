@@ -1,8 +1,11 @@
 ﻿using Contacts.Application.Common.Interfaces;
 using Contacts.Domain.Common;
 using Contacts.Domain.Entities;
+using Contacts.Services.ContactsServices;
+using Contacts.Services.HttpClients;
 using Contacts.Services.Stores;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +20,8 @@ namespace Contacts.Services
         {
             services.AddSingleton<IStore<Contact>, ContactsStore>();
             services.AddSingleton<IStore<User>, UserStore>();
+            services.AddHttpClient<CommonApiClent>();
+            services.AddSingleton<IContactsApiService, ContactsApiService>();
             return services;
         }
     }

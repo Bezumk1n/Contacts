@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contacts.WPF", "Contacts.WP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contacts.MAUI", "Contacts.MAUI\Contacts.MAUI.csproj", "{45A7CCE1-01BE-474E-81F0-2F99792A2C9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contacts.Services", "Contacts.Services\Contacts.Services.csproj", "{E6561C50-20C9-4B6D-9541-D17A2701DC58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contacts.Services", "Contacts.Services\Contacts.Services.csproj", "{E6561C50-20C9-4B6D-9541-D17A2701DC58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
