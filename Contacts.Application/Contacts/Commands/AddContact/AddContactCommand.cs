@@ -12,18 +12,20 @@ namespace Contacts.Application.Contacts.Commands.AddContact
     public class AddContactCommandHandler : IRequestHandler<AddContactCommand>
     {
         private readonly IStore<Contact> _contactsStore;
-        private readonly IContactsApiService _contactsApiService;
+        private readonly ICommonApiClient _client;
 
-        public AddContactCommandHandler(IStore<Contact> contactsStore, IContactsApiService contactsApiService)
+        public AddContactCommandHandler(IStore<Contact> contactsStore, ICommonApiClient client)
         {
             _contactsStore = contactsStore;
-            _contactsApiService = contactsApiService;
+            _client = client;
         }
         public async Task Handle(AddContactCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var contact = await _contactsApiService.AddContact(request.Contact);
+                //string uri = "http://192.168.0.175:5000/api/Contacts/AddContact";
+                string uriLocal = "http://localhost:5000/api/Contacts/AddContact";
+                var contact = await _client.PostData<Contact>(uriLocal, request.Contact);
                 _contactsStore.AddItem(contact);
 
             }

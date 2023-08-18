@@ -1,4 +1,5 @@
 ﻿using Contacts.Application.Common.Interfaces;
+using Contacts.Application.Contacts.Queries.GetContacts;
 using Contacts.Domain.Entities;
 using Contacts.Services.HttpClients;
 using Newtonsoft.Json;
@@ -22,9 +23,22 @@ namespace Contacts.Services.ContactsServices
         {
             try
             {
-                //string uri = "http://192.168.0.175:5000/api/v1/Contacts/AddContact";
-                string uriLocal = "http://localhost:5000/api/v1/Contacts/AddContact";
+                //string uri = "http://192.168.0.175:5000/api/Contacts/AddContact";
+                string uriLocal = "http://localhost:5000/api/Contacts/AddContact";
                 return await _commonApiClent.PostData<Contact>(uriLocal, contact);
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+        }
+        public async Task<ContactListVM> GetAllContacts()
+        {
+            try
+            {
+                //string uri = "http://192.168.0.175:5000/api/Contacts/AddContact";
+                string uriLocal = "http://localhost:5000/api/Contacts/GetAllContacts";
+                return await _commonApiClent.GetData<ContactListVM>(uriLocal);
             }
             catch (Exception exception)
             {
@@ -33,18 +47,18 @@ namespace Contacts.Services.ContactsServices
         }
         //public async Task<Contact> UpdateContact(Contact contact)
         //{
-        //    string uri = "http://192.168.0.175:5000/api/v1/Contacts/UpdateContact";
+        //    string uri = "http://192.168.0.175:5000/api/Contacts/UpdateContact";
         //}
         //public async Task<IEnumerable<Contact>> GetContactsContact()
         //{
-        //    string uri = "http://192.168.0.175:5000/api/v1/Contacts/GetContacts";
+        //    string uri = "http://192.168.0.175:5000/api/Contacts/GetContacts";
         //}
         public async Task RemoveContact(Guid id)
         {
             try
             {
-                //string uri = "http://192.168.0.175:5000/api/v1/Contacts/RemoveContact";
-                string uriLocal = "http://localhost:5000/api/v1/Contacts/RemoveContact";
+                //string uri = "http://192.168.0.175:5000/api/Contacts/RemoveContact";
+                string uriLocal = "http://localhost:5000/api/Contacts/RemoveContact";
                 await _commonApiClent.PostData<Guid>(uriLocal, id);
             }
             catch (Exception exception)

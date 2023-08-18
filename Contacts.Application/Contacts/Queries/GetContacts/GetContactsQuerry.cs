@@ -10,18 +10,20 @@ namespace Contacts.Application.Contacts.Queries.GetContacts
     }
     public class GetContactsQuerryHandler : IRequestHandler<GetContactsQuerry>
     {
-        private readonly IContactsDbContext _context;
         private readonly IStore<Contact> _contactsStore;
+        private readonly ICommonApiClient _client;
 
-        public GetContactsQuerryHandler(IContactsDbContext context, IStore<Contact> contactsStore)
+        public GetContactsQuerryHandler(IStore<Contact> contactsStore, ICommonApiClient client)
         {
-            _context = context;
             _contactsStore = contactsStore;
+            _client = client;
         }
         public async Task Handle(GetContactsQuerry request, CancellationToken cancellationToken)
         {
-            var querry = _context.Contacts.AsNoTracking();
-            _contactsStore.AddItems(querry.ToList());
+            //string uri = "http://192.168.0.175:5000/api/Contacts/AddContact";
+            string uriLocal = "http://localhost:5000/api/Contacts/GetAllContacts";
+            var result = await _client.GetData<ContactListVM>(uriLocal);
+            _contactsStore.AddItems(result.Contacts);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Contacts.Domain.Entities;
+﻿using Contacts.Application.Common.Interfaces;
+using Contacts.Domain.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Contacts.Services.HttpClients
 {
-    public class CommonApiClent
+    public class CommonApiClent : ICommonApiClient
     {
         private readonly HttpClient _client;
         public CommonApiClent(HttpClient httpClient)

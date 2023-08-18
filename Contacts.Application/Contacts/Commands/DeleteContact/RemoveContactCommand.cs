@@ -11,21 +11,21 @@ namespace Contacts.Application.Contacts.Commands.DeleteContact
     }
     public class RemoveContactCommandHandler : IRequestHandler<RemoveContactCommand>
     {
-        private readonly IContactsDbContext _context;
         private readonly IStore<Contact> _contactsStore;
-        private readonly IContactsApiService _contactsApiService;
+        private readonly ICommonApiClient _client;
 
-        public RemoveContactCommandHandler(IContactsDbContext context, IStore<Contact> contactsStore, IContactsApiService contactsApiService)
+        public RemoveContactCommandHandler(IStore<Contact> contactsStore, ICommonApiClient client)
         {
-            _context = context;
             _contactsStore = contactsStore;
-            _contactsApiService = contactsApiService;
+            _client = client;
         }
         public async Task Handle(RemoveContactCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                await _contactsApiService.RemoveContact(request.Id);
+                //string uri = "http://192.168.0.175:5000/api/Contacts/RemoveContact";
+                string uriLocal = "http://localhost:5000/api/Contacts/RemoveContact";
+                await _client.PostData<Guid>(uriLocal, request.Id);
                 _contactsStore.RemoveItem(request.Id);
 
             }

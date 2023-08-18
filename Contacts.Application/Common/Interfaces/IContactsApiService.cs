@@ -1,4 +1,5 @@
-﻿using Contacts.Domain.Entities;
+﻿using Contacts.Application.Contacts.Queries.GetContacts;
+using Contacts.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Contacts.Application.Common.Interfaces
     {
         Task<Contact> AddContact(Contact contact);
         Task RemoveContact(Guid id);
+        Task<ContactListVM> GetAllContacts();
     }
 }

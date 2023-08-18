@@ -20,8 +20,7 @@ namespace Contacts.Services
         {
             services.AddSingleton<IStore<Contact>, ContactsStore>();
             services.AddSingleton<IStore<User>, UserStore>();
-            services.AddHttpClient<CommonApiClent>();
-            services.AddSingleton<IContactsApiService, ContactsApiService>();
+            services.AddHttpClient<ICommonApiClient,CommonApiClent>();
             return services;
         }
     }

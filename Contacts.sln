@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contacts.Services", "Contac
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{44D8E636-61F5-4BB0-B3F9-FDD64E710477}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contacts.Server", "Contacts.Server\Contacts.Server.csproj", "{F54DD3A1-1FCA-4EC6-A44C-A8B078EF88CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contacts.Server", "Contacts.Server\Contacts.Server.csproj", "{F54DD3A1-1FCA-4EC6-A44C-A8B078EF88CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
