@@ -10,5 +10,7 @@ namespace Contacts.Application.Common.Interfaces
     {
         Task<T> GetData<T>(string uri);
         Task<T> PostData<T>(string uri, T data);
+        Task<T> PutData<T>(string uri, T data);
+        Task RemoveData(string uri);
     }
 }

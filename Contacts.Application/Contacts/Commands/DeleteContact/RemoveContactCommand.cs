@@ -24,8 +24,8 @@ namespace Contacts.Application.Contacts.Commands.DeleteContact
             try
             {
                 //string uri = "http://192.168.0.175:5000/api/Contacts/RemoveContact";
-                string uriLocal = "http://localhost:5000/api/Contacts/RemoveContact";
-                await _client.PostData<Guid>(uriLocal, request.Id);
+                string uriLocal = "http://localhost:5000/api/Contacts/RemoveContact/";
+                await _client.RemoveData(uriLocal + request.Id);
                 _contactsStore.RemoveItem(request.Id);
 
             }

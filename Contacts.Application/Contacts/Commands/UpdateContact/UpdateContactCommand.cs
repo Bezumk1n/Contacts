@@ -22,7 +22,7 @@ namespace Contacts.Application.Contacts.Commands.UpdateContact
         {
             //string uri = "http://192.168.0.175:5000/api/Contacts/UpdateContact";
             string uriLocal = "http://localhost:5000/api/Contacts/UpdateContact";
-            var contact = await _client.PostData<Contact>(uriLocal, request.Contact);
+            var contact = await _client.PutData<Contact>(uriLocal, request.Contact);
             _store.ReplaceItem(_store.SelectedItem, contact);
 
         }

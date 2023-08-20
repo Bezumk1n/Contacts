@@ -23,6 +23,7 @@ namespace Contacts.Application.Contacts.Commands.AddContact
             {
                 request.Contact.Created = DateTime.UtcNow;
                 var result = await _context.Contacts.AddAsync(request.Contact);
+                _context.SaveChanges();
                 return result.Entity;
 
             }

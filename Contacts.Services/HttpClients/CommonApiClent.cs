@@ -33,8 +33,7 @@ namespace Contacts.Services.HttpClients
         {
             try
             {
-                var json = JsonConvert.SerializeObject(data);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var content = CreateStringContent<T>(data);
                 var response = await _client.PostAsync(uri, content);
 
                 var responseContent = await response.Content.ReadAsStringAsync();
@@ -44,6 +43,38 @@ namespace Contacts.Services.HttpClients
             {
                 throw exception;
             }
+        }
+        public async Task<T> PutData<T>(string uri, T data)
+        {
+            try
+            {
+                var content = CreateStringContent<T>(data);
+                var response = await _client.PutAsync(uri, content);
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(responseContent);
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+        }
+        public async Task RemoveData(string uri)
+        {
+            try
+            {
+                await _client.DeleteAsync(uri);
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+        }
+        private StringContent CreateStringContent<T>(T data)
+        {
+            var json = JsonConvert.SerializeObject(data);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            return content;
         }
     }
 }
