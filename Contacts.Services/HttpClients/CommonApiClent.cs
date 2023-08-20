@@ -1,4 +1,5 @@
-﻿using Contacts.Application.Common.Interfaces;
+﻿using Contacts.Application.Common;
+using Contacts.Application.Common.Interfaces;
 using Contacts.Domain.Entities;
 using Newtonsoft.Json;
 using System;
@@ -37,7 +38,8 @@ namespace Contacts.Services.HttpClients
                 var response = await _client.PostAsync(uri, content);
 
                 var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(responseContent);
+                var deserialized = JsonConvert.DeserializeObject<ResponseDTO<T>>(responseContent);
+                return deserialized.Content;
             }
             catch (Exception exception)
             {
@@ -52,7 +54,8 @@ namespace Contacts.Services.HttpClients
                 var response = await _client.PutAsync(uri, content);
 
                 var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(responseContent);
+                var deserialized = JsonConvert.DeserializeObject<ResponseDTO<T>>(responseContent);
+                return deserialized.Content;
             }
             catch (Exception exception)
             {

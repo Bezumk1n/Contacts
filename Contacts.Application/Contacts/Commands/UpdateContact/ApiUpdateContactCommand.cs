@@ -1,14 +1,15 @@
-﻿using Contacts.Application.Common.Interfaces;
+﻿using Contacts.Application.Common;
+using Contacts.Application.Common.Interfaces;
 using Contacts.Domain.Entities;
 using MediatR;
 
 namespace Contacts.Application.Contacts.Commands.UpdateContact
 {
-    public class ApiUpdateContactCommand : IRequest<Contact>
+    public class ApiUpdateContactCommand : IRequest<ResponseDTO<Contact>>
     { 
         public Contact Contact { get; set; }
     }
-    public class ApiUpdateContactCommandHandler : IRequestHandler<ApiUpdateContactCommand, Contact>
+    public class ApiUpdateContactCommandHandler : IRequestHandler<ApiUpdateContactCommand, ResponseDTO<Contact>>
     {
         private readonly IContactsDbContext _context;
 
@@ -16,8 +17,9 @@ namespace Contacts.Application.Contacts.Commands.UpdateContact
         {
             _context = context;
         }
-        public async Task<Contact> Handle(ApiUpdateContactCommand request, CancellationToken cancellationToken)
+        public async Task<ResponseDTO<Contact>> Handle(ApiUpdateContactCommand request, CancellationToken cancellationToken)
         {
+            var response = new ResponseDTO<Contact>();
             try
             {
                 var entity = await _context.Contacts.FindAsync(request.Contact.Id);
@@ -31,14 +33,16 @@ namespace Contacts.Application.Contacts.Commands.UpdateContact
 
                 _context.SaveChanges();
 
-                return await _context.Contacts.FindAsync(request.Contact.Id);
+                response.Content = await _context.Contacts.FindAsync(request.Contact.Id);
+                response.Success = true;
             }
             catch (Exception exception)
             {
-                throw exception;
+                response.Success = false;
+                response.Message = exception.Message;
             }
-            
 
+            return response;
         }
     }
 }
