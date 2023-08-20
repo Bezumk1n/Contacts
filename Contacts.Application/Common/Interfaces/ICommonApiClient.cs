@@ -8,7 +8,7 @@ namespace Contacts.Application.Common.Interfaces
 {
     public interface ICommonApiClient
     {
-        Task<T> GetData<T>(string uri) where T : new();
-        Task<T> PostData<T>(string uri, T data) where T : new();
+        Task<T> GetData<T>(string uri);
+        Task<T> PostData<T>(string uri, T data);
     }
 }

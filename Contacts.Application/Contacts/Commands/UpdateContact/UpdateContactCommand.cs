@@ -30,7 +30,12 @@ namespace Contacts.Application.Contacts.Commands.UpdateContact
             //if (entity.PhoneNumber != request.Contact.PhoneNumber) entity.PhoneNumber = request.Contact.PhoneNumber;
             //_context.SaveChanges();
 
-            //_store.ReplaceItem(_store.SelectedItem, entity);
+
+            //string uri = "http://192.168.0.175:5000/api/Contacts/UpdateContact";
+            string uriLocal = "http://localhost:5000/api/Contacts/UpdateContact";
+            var contact = await _client.PostData<Contact>(uriLocal, request.Contact);
+            _store.ReplaceItem(_store.SelectedItem, contact);
+
         }
     }
 }

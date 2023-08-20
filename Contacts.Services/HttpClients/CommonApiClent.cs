@@ -16,24 +16,21 @@ namespace Contacts.Services.HttpClients
         {
             _client = httpClient;
         }
-        public async Task<T> GetData<T>(string uri) where T : new ()
+        public async Task<T> GetData<T>(string uri)
         {
-            var result = new T();
             try
             {
                 HttpResponseMessage response = await _client.GetAsync(uri);
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                result = JsonConvert.DeserializeObject<T>(jsonResponse);
+                return JsonConvert.DeserializeObject<T>(jsonResponse);
             }
             catch (Exception exception)
             {
                 throw exception;
             }
-            return result!;
         }
-        public async Task<T> PostData<T>(string uri, T data) where T : new()
+        public async Task<T> PostData<T>(string uri, T data)
         {
-            var result = new T();
             try
             {
                 var json = JsonConvert.SerializeObject(data);
@@ -41,13 +38,12 @@ namespace Contacts.Services.HttpClients
                 var response = await _client.PostAsync(uri, content);
 
                 var responseContent = await response.Content.ReadAsStringAsync();
-                result = JsonConvert.DeserializeObject<T>(responseContent);
+                return JsonConvert.DeserializeObject<T>(responseContent);
             }
             catch (Exception exception)
             {
                 throw exception;
             }
-            return result;
         }
     }
 }

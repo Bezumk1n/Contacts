@@ -7,7 +7,7 @@ namespace Contacts.Application.Contacts.Commands.AddContact
 {
     public class AddContactCommand : IRequest
     {
-        public Contact Contact;
+        public Contact Contact { get; set; }
     }
     public class AddContactCommandHandler : IRequestHandler<AddContactCommand>
     {
