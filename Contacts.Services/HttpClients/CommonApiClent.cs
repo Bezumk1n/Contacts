@@ -22,8 +22,7 @@ namespace Contacts.Services.HttpClients
             try
             {
                 HttpResponseMessage response = await _client.GetAsync(uri);
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(jsonResponse);
+                return await DeserializeResponse<T>(response);
             }
             catch (Exception exception)
             {
@@ -36,10 +35,7 @@ namespace Contacts.Services.HttpClients
             {
                 var content = CreateStringContent<T>(data);
                 var response = await _client.PostAsync(uri, content);
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var deserialized = JsonConvert.DeserializeObject<ResponseDTO<T>>(responseContent);
-                return deserialized.Content;
+                return await DeserializeResponse<T>(response);
             }
             catch (Exception exception)
             {
@@ -52,10 +48,7 @@ namespace Contacts.Services.HttpClients
             {
                 var content = CreateStringContent<T>(data);
                 var response = await _client.PutAsync(uri, content);
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var deserialized = JsonConvert.DeserializeObject<ResponseDTO<T>>(responseContent);
-                return deserialized.Content;
+                return await DeserializeResponse<T>(response);
             }
             catch (Exception exception)
             {
@@ -78,6 +71,12 @@ namespace Contacts.Services.HttpClients
             var json = JsonConvert.SerializeObject(data);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             return content;
+        }
+        private async Task<T> DeserializeResponse<T>(HttpResponseMessage response)
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var deserialized = JsonConvert.DeserializeObject<ResponseDTO<T>>(responseContent);
+            return deserialized.Content;
         }
     }
 }

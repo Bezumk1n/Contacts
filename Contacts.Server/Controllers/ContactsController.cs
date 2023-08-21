@@ -12,7 +12,7 @@ namespace Contacts.Server.Controllers
     public class ContactsController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<ContactListVM>> GetAllContacts()
+        public async Task<ActionResult> GetAllContacts()
         {
             var query = new ApiGetContactsQuerry();
             var result = await Mediator.Send(query);

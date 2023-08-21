@@ -1,14 +1,15 @@
-﻿using Contacts.Application.Common.Interfaces;
+﻿using Contacts.Application.Common;
+using Contacts.Application.Common.Interfaces;
 using Contacts.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Contacts.Application.Contacts.Queries.GetContacts
 {
-    public class ApiGetContactsQuerry : IRequest<ContactListVM>
+    public class ApiGetContactsQuerry : IRequest<ResponseDTO<ContactListVM>>
     {
     }
-    public class ApiGetContactsQuerryHandler : IRequestHandler<ApiGetContactsQuerry, ContactListVM>
+    public class ApiGetContactsQuerryHandler : IRequestHandler<ApiGetContactsQuerry, ResponseDTO<ContactListVM>>
     {
         private readonly IContactsDbContext _context;
 
@@ -16,14 +17,25 @@ namespace Contacts.Application.Contacts.Queries.GetContacts
         {
             _context = context;
         }
-        public async Task<ContactListVM> Handle(ApiGetContactsQuerry request, CancellationToken cancellationToken)
+        public async Task<ResponseDTO<ContactListVM>> Handle(ApiGetContactsQuerry request, CancellationToken cancellationToken)
         {
-            var querry = _context.Contacts.AsNoTracking();
-            var result = new ContactListVM
+            var response = new ResponseDTO<ContactListVM>();
+            try
             {
-                Contacts = querry.ToList()
-            };
-            return result;
+                var querry = _context.Contacts.AsNoTracking();
+
+                response.Success = true;
+                response.Content = new ContactListVM()
+                {
+                    Contacts = querry.ToArray(),
+                };
+            }
+            catch (Exception exception)
+            {
+                response.Success = false;
+                response.Message = exception.Message;
+            }
+            return response;
         }
     }
 }
