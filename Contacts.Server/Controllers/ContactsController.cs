@@ -12,14 +12,14 @@ namespace Contacts.Server.Controllers
     public class ContactsController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult> GetAllContacts()
+        public async Task<ActionResult<ResponseDTO<ContactListVM>>> GetAllContacts()
         {
             var query = new ApiGetContactsQuerry();
             var result = await Mediator.Send(query);
             return Ok(result);
         }
         [HttpPost]
-        public async Task<ActionResult> AddContact([FromBody] Contact contact)
+        public async Task<ActionResult<ResponseDTO<Contact>>> AddContact([FromBody] Contact contact)
         {
             var query = new ApiAddContactCommand();
             query.Contact = contact;
@@ -27,7 +27,7 @@ namespace Contacts.Server.Controllers
             return Ok(result);
         }
         [HttpPut]
-        public async Task<ActionResult> UpdateContact([FromBody] Contact contact)
+        public async Task<ActionResult<ResponseDTO<Contact>>> UpdateContact([FromBody] Contact contact)
         {
             var query = new ApiUpdateContactCommand();
             query.Contact = contact;
