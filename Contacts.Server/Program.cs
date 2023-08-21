@@ -4,10 +4,7 @@ using Contacts.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
@@ -36,7 +33,7 @@ using (var scope = builder.Services.BuildServiceProvider().CreateScope())
     }
     catch (Exception exception)
     {
-        //TODO
+        //TODO 
     }
 }
 

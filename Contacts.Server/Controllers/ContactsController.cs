@@ -1,4 +1,5 @@
-﻿using Contacts.Application.Contacts.Commands.AddContact;
+﻿using Contacts.Application.Common;
+using Contacts.Application.Contacts.Commands.AddContact;
 using Contacts.Application.Contacts.Commands.DeleteContact;
 using Contacts.Application.Contacts.Commands.UpdateContact;
 using Contacts.Application.Contacts.Queries.GetContacts;

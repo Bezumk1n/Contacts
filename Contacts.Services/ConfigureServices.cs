@@ -1,7 +1,6 @@
 ﻿using Contacts.Application.Common.Interfaces;
 using Contacts.Domain.Common;
 using Contacts.Domain.Entities;
-using Contacts.Services.ContactsServices;
 using Contacts.Services.HttpClients;
 using Contacts.Services.Stores;
 using Microsoft.Extensions.DependencyInjection;
